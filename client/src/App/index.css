@@ -1,0 +1,97 @@
+#root,
+body,
+html {
+  height: max-content;
+  width: max-content;
+  width: 100vw;
+}
+
+.login {
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login_container {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  width: 450px;
+  padding: 1.5rem;
+  color: black;
+  border-radius: 15px;
+}
+.from_group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+.from_input {
+  height: 40px;
+  border-radius: 20px;
+  outline: none;
+  padding: 0.5rem 1rem;
+  border: 2px solid blueviolet;
+}
+.from_group button {
+  background-color: brown;
+  border-radius: 20px;
+  border: none;
+  padding: 0.5rem;
+  margin-top: 20px;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: all 0.5s ease-in-out;
+}
+.from_group button:hover {
+  background-color: rgb(197, 57, 57);
+}
+.signin__container {
+  width: 100vw;
+}
+@media screen and (max-width: 650px) {
+  .signin__container {
+    font-size: 0.5rem;
+    min-width: max-content;
+    margin: auto;
+  }
+}
+.rgt-container {
+}
+.project__sidebar {
+  height: 60vh;
+  width: 15rem;
+  border-bottom-right-radius: 2rem;
+}
+
+.project__container {
+}
+.project__board {
+}
+.project__fullContainer {
+}
+@media screen and (max-width: 650px) {
+  .signin__container {
+    font-size: 0.5rem;
+    min-width: max-content;
+    margin: auto;
+  }
+}
+.mapShow__container div:first-child {
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 450px) {
+  .items {
+    width: 70vw;
+    z-index: 10000;
+  }
+  .container {
+    width: 70vw !important;
+  }
+}
+.avatar__container {
+  cursor: pointer;
+  position: relative;
+}

@@ -1,0 +1,51 @@
+version: "3.0"
+services:
+  frontend:
+    build: 
+      context: ./client
+    container_name: frontend
+    networks:
+      - internal
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - backend
+    restart: always
+
+  backend:
+    build: 
+      context: ./backend
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+    ports:
+      - 8000:5000
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend:/usr/src/node-app
+      - /usr/src/node-app/node_modules
+      - backend-data:/usr/src/node-app/uploads
+    networks:
+      - internal
+
+
+  mongodb:
+    image: mongo:4.2.1-bionic
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - internal
+
+
+volumes:
+  dbdata:
+  backend-data:
+
+networks:
+  internal:
+    driver: bridge
