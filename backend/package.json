@@ -6,7 +6,7 @@
   "author": "Umer Nisar <umernisar3854@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16.20.1"
   },
   "scripts": {
     "start": "cross-env SET NODE_ENV=production & node src/index.js",

@@ -1,5 +1,5 @@
-FROM node:14.20-buster
-ENV NODE_ENV development
+FROM node:16-buster
+ENV NODE_ENV production
 # Add a work directory
 WORKDIR /app
 # Cache and Install dependencies
