@@ -1,12 +1,7 @@
-const express = require('express');
-const httpStatus = require('http-status');
-const config = require('./config/config');
-const routes = require('./routes/v1');
-const ApiError = require('./utils/ApiError');
-const errorConverter = require('./middlewares/errorConverter');
 const errorHandler = require('./middlewares/errorHandler');
 const authLimiter = require('./middlewares/authLimiter');
 const logger = require('./config/logger');
+const errorConverter = require('./middlewares/error'); // Updated import
 
 const app = express();
 
