@@ -1,3 +1,13 @@
+const app = require('./app');
+const config = require('./config/config');
+const logger = require('./config/logger');
+
+const PORT = process.env.PORT || 10000;
+
+const server = app.listen(PORT, () => {
+  logger.info(`Server is running on port ${PORT}`);
+});
+
 const exitHandler = () => {
   if (server) {
     server.close(() => {
