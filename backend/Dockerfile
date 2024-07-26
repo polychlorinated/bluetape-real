@@ -12,7 +12,7 @@ RUN npm ci
 COPY . .
 
 # Expose port (use the PORT environment variable set by Render)
-EXPOSE $PORT
+EXPOSE 10000
 
 # Start the app
 CMD ["npm", "start"]
