@@ -1,13 +1,12 @@
 FROM node:14
-ENV NODE_ENV development
-# Add a work directory
-WORKDIR /usr/src/app
-# Cache and Install dependencies
-COPY package.json .
+WORKDIR /app
+COPY package*.json ./
 RUN npm install
-# Copy app files
 COPY . .
-# Expose port
+RUN npm run build
+
+# Install serve to run the application
+RUN npm install -g serve
+
 EXPOSE 3000
-# Start the app
-CMD [ "npm", "start" ]
+CMD ["serve", "-s", "build", "-l", "3000"]
