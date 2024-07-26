@@ -9,9 +9,8 @@
     "node": ">=16.20.1"
   },
   "scripts": {
-    "start": "cross-env SET NODE_ENV=production & node src/index.js",
-    "dev": "cross-env NODE_ENV=development nodemon src/index.js"
-  },
+  "start": "node src/index.js"
+},
   "keywords": [
     "node",
     "node.js",

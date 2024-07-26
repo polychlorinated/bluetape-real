@@ -4,7 +4,7 @@ const { createServer } = require('http');
 const app = require('./app');
 const config = require('./config/config');
 const logger = require('./config/logger');
-
+const JWT_SECRET = process.env.JWT_SECRET;
 mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
   logger.info('Connected to MongoDB');
 });
