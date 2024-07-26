@@ -1,9 +1,23 @@
+const express = require('express');
+const config = require('./config/config');
+const routes = require('./routes/v1');
+const ApiError = require('./utils/ApiError');
+const httpStatus = require('http-status');
 const errorHandler = require('./middlewares/errorHandler');
 const authLimiter = require('./middlewares/authLimiter');
 const logger = require('./config/logger');
 const errorConverter = require('./middlewares/error'); // Updated import
 
 const app = express();
+
+// Security middlewares
+const helmet = require('helmet');
+const cors = require('cors');
+const compression = require('compression');
+
+app.use(helmet());
+app.use(cors());
+app.use(compression());
 
 // limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
