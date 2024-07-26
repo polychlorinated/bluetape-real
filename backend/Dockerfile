@@ -1,15 +1,12 @@
 FROM node:16-buster
 
-# The NODE_ENV will be set by Render, so we can remove this line
-# ENV NODE_ENV production
-
 # Add a work directory
 WORKDIR /app
 
 # Cache and Install dependencies
-COPY package.json yarn.lock ./
+COPY package*.json ./
 
-RUN yarn install --frozen-lockfile
+RUN npm ci
 
 # Copy app files
 COPY . .
@@ -18,4 +15,4 @@ COPY . .
 EXPOSE $PORT
 
 # Start the app
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
