@@ -4,7 +4,7 @@ const routes = require('./routes/v1');
 const ApiError = require('./utils/ApiError');
 const httpStatus = require('http-status');
 const errorHandler = require('./middlewares/errorHandler');
-const rateLimiter = require('./middlewares/rateLimiter');
+const rateLimiter = require('./middlewares/rateLimiter'); // Importing the rate limiter middleware
 const logger = require('./config/logger');
 const errorConverter = require('./middlewares/error'); // Updated import
 
@@ -21,7 +21,7 @@ app.use(compression());
 
 // limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
-  app.use('/v1/auth', rateLimiter); // Updated to use rateLimiter
+  app.use('/v1/auth', rateLimiter); // Using the rate limiter middleware
 }
 
 // v1 api routes
@@ -33,7 +33,7 @@ app.get('/api/example', (req, res) => {
 });
 
 // Error handling middlewares
-app.use(errorConverter);
-app.use(errorHandler);
+app.use(errorConverter); // Middleware to convert errors
+app.use(errorHandler); // Middleware to handle errors
 
-module.exports = app;
+module.exports = app; // Export the app module
