@@ -7,7 +7,7 @@ import Routes from './Routes';
 import history from '../browserHistory';
 import './fontStyles.css';
 import './index.css';
-import { connectSocket } from '../redux/socket/socket-reducer';
+import { connectSocket } from '../redux/socket/socket-actions';
 import { connect } from 'react-redux';
 import mapboxgl from 'mapbox-gl';
 

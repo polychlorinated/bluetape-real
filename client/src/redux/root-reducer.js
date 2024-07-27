@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import userReducer from "./user/user-reducer";
 import projectReducer from "./project/project-reducer";
 import epicReducer from "./epic/epic-reducer";
-//import socketReducer from "./socket/socket-reducer";
+//import socketReducer from "./socket/socket-actions";
 import authReducer from './auth/auth-reducer';
 import projectReducer from './project/project-reducer';
 
