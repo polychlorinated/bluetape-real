@@ -72,12 +72,12 @@ const renderLinkItem = (match, text, iconType, path) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state.userState.user);
+  console.log(state.auth.user);
   if (
-    state.userState.user.role === 'owner' &&
-    !state.userState.user.isHalfOwner
+    state.auth.user.role === 'owner' &&
+    !state.auth.user.isHalfOwner
   )
-    return { userRole: state.userState.user.role };
+    return { userRole: state.auth.user.role };
   else {
     return { userRole: 'member' };
   }

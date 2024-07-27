@@ -103,7 +103,7 @@ const renderCategory = ({ value: type }) => (
 ProjectEpicCreate.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-  project: state.projectState.project,
+  project: state.project.project,
 });
 
 export default connect(mapStateToProps)(ProjectEpicCreate);

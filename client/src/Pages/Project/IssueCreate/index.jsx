@@ -248,7 +248,7 @@ const renderEpic = (project) => ({ value: epicId, removeOptionValue }) => {
 ProjectIssueCreate.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-  project: state.projectState.project,
+  project: state.project.project,
 });
 
 export default connect(mapStateToProps)(ProjectIssueCreate);

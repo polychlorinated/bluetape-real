@@ -80,7 +80,7 @@ const NotificationCard = ({ data }) => {
 
 const mapStateToProps = (state) => ({
   socket: state.socketState,
-  userId: state.userState.user.id,
+  userId: state.auth.user.id,
 });
 
 export default connect(mapStateToProps)(NotificationHandler);

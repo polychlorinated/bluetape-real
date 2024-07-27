@@ -124,7 +124,7 @@ const ProjectsTable = ({ user, projects, filters, fetchProjects, page }) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.userState.user,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps)(ProjectsTable);

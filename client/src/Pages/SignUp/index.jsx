@@ -136,7 +136,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  inviteInputVisible: state.userState.inviteInputVisible,
+  inviteInputVisible: state.auth.inviteInputVisible,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

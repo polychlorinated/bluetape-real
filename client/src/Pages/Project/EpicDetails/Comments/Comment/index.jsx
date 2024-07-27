@@ -93,7 +93,7 @@ const ProjectBoardEpicDetailsComment = ({ comment, fetchEpic, userId }) => {
 ProjectBoardEpicDetailsComment.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-  userId: state.userState.user.id,
+  userId: state.auth.user.id,
 });
 
 export default connect(mapStateToProps)(ProjectBoardEpicDetailsComment);

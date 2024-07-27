@@ -34,8 +34,8 @@ const ProjectBoardHeader = ({
 };
 
 const mapStateToProps = (state) => ({
-  user: state.userState.user,
-  project: state.projectState.project,
+  user: state.auth.user,
+  project: state.project.project,
 });
 
 export default connect(mapStateToProps)(ProjectBoardHeader);

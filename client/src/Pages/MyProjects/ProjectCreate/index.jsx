@@ -190,7 +190,7 @@ const renderUser = (users) => ({ value: userId, removeOptionValue }) => {
 CreateProject.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-  orgId: state.userState.user.orgId,
+  orgId: state.auth.user.orgId,
 });
 
 export default connect(mapStateToProps)(CreateProject);

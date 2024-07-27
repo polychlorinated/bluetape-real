@@ -1,17 +1,12 @@
 import { combineReducers } from "redux";
-import userReducer from "./user/user-reducer";
+import userReducer from './user/user-reducer';
 import projectReducer from "./project/project-reducer";
 import epicReducer from "./epic/epic-reducer";
-//import socketReducer from "./socket/socket-actions";
-import authReducer from './auth/auth-reducer';
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  auth: userReducer,
   project: projectReducer,
-  userState: userReducer,
-  projectState: projectReducer,
-  epicState: epicReducer,
-  //socketState: socketReducer,
+  epic: epicReducer,
 });
 
 export default rootReducer;

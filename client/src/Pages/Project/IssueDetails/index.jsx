@@ -202,8 +202,8 @@ const ProjectBoardIssueDetails = ({
 
 ProjectBoardIssueDetails.propTypes = propTypes;
 const mapStateToProps = (state) => ({
-  user: state.userState.user,
-  projectLead: state.projectState.project.projectLead,
+  user: state.auth.user,
+  projectLead: state.project.project.projectLead,
 });
 
 export default connect(mapStateToProps)(ProjectBoardIssueDetails);

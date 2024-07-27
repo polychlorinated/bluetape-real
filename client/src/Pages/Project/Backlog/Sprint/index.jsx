@@ -61,7 +61,7 @@ const Index = ({ projectId, fetchProject, issues }) => {
 Index.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-  issues: state.projectState.project.issues,
+  issues: state.project.project.issues,
 });
 
 export default connect(mapStateToProps)(Index);

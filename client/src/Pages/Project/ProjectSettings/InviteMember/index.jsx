@@ -76,7 +76,7 @@ const InviteMemberToProject = ({ project, user, modalClose }) => {
 InviteMemberToProject.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-  user: state.userState.user,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps)(InviteMemberToProject);

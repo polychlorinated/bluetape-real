@@ -233,7 +233,7 @@ const categoryOptions = Object.values(ProjectType).map((category) => ({
 ProjectSettings.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-  project: state.projectState.project,
+  project: state.project.project,
 });
 
 export default connect(mapStateToProps)(ProjectSettings);

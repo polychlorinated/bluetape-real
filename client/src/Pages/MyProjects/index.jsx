@@ -91,7 +91,7 @@ const MyProjects = ({ userId, setOrgProjects }) => {
 };
 
 const mapStateToProps = (state) => ({
-  userId: state.userState.user.id,
+  userId: state.auth.user.id,
 });
 
 const mapDispatchToProps = (dispatch) => ({

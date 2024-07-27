@@ -55,7 +55,7 @@ const ProjectBoardHeader = ({ project, fetchProject, user }) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.userState.user,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps)(ProjectBoardHeader);
