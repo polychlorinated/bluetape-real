@@ -1,28 +1,35 @@
-const config = require('./config/config');
-const routes = require('./routes/v1');
-const ApiError = require('./utils/ApiError');
-const httpStatus = require('http-status');
-const rateLimiter = require('./middlewares/rateLimiter');
-const logger = require('./config/logger');
 const express = require('express');
-const { errorConverter, errorHandler } = require('./middlewares/error');
-
-const app = express();
-
-// Error handling middlewares
-app.use(errorConverter);
-app.use(errorHandler);
-
-// Security middlewares
 const helmet = require('helmet');
 const cors = require('cors');
 const compression = require('compression');
+const httpStatus = require('http-status');
+const config = require('./config/config');
+const logger = require('./config/logger');
+const routes = require('./routes/v1');
+const { errorConverter, errorHandler } = require('./middlewares/error');
+const rateLimiter = require('./middlewares/rateLimiter');
 
+const app = express();
+
+// Set security HTTP headers
 app.use(helmet());
-app.use(cors());
+
+// Parse JSON request body
+app.use(express.json());
+
+// Parse urlencoded request body
+app.use(express.urlencoded({ extended: true }));
+
+// Gzip compression
 app.use(compression());
 
-// limit repeated failed requests to auth endpoints
+// Enable CORS
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  credentials: true,
+}));
+
+// Limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
   app.use('/v1/auth', rateLimiter);
 }
@@ -30,6 +37,15 @@ if (config.env === 'production') {
 // v1 api routes
 app.use('/v1', routes);
 
-// Example route with logging
+// Send back a 404 error for any unknown api request
+app.use((req, res, next) => {
+  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+});
 
-module.exports = app; // Ensure the app module is exported
+// Convert error to ApiError, if needed
+app.use(errorConverter);
+
+// Handle error
+app.use(errorHandler);
+
+module.exports = app;

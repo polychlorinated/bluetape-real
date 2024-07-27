@@ -94,7 +94,7 @@ const ProjectIssueCreate = ({
         }
         try {
           await createIssue(reqObject);
-          let url = `https://testapi.bluetape.io/v1/issue/postImage/${
+          let url = `${process.env.REACT_APP_API_URL}.com/v1/issue/postImage/${
             epic.key
           }*${epic.totalIssues + 1}`;
           let fd = new FormData();

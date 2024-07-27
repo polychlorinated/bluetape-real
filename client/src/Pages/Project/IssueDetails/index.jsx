@@ -75,7 +75,7 @@ const ProjectBoardIssueDetails = ({
       body: body,
     };
     await axios.post(
-      `https://testapi.bluetape.io/v1/issue/createReview`,
+      `${process.env.REACT_APP_API_URL}.com/v1/issue/createReview`,
       sData
     );
     await fetchIssue();
@@ -115,12 +115,12 @@ const ProjectBoardIssueDetails = ({
                 <video
                   controls
                   style={{ width: '100%', height: '100%' }}
-                  src={`https://testapi.bluetape.io/files/${issue.file}`}
+                  src={`${process.env.REACT_APP_API_URL}.com/files/${issue.file}`}
                 />
               </div>
             ) : (
               <Image
-                src={`https://testapi.bluetape.io/files/${issue.file}`}
+                src={`${process.env.REACT_APP_API_URL}.com/files/${issue.file}`}
                 alt="Some Picture"
                 issue={issue}
                 updateIssue={updateIssue}

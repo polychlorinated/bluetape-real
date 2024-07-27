@@ -107,7 +107,7 @@ const ProjectBoardIssueDetailsComment = ({
                       maxHeight: '20rem',
                       padding: '1rem',
                     }}
-                    src={`https://testapi.bluetape.io/files/${comment.file}`}
+                    src={`${process.env.REACT_APP_API_URL}.com/files/${comment.file}`}
                   />
                 </div>
               ) : (
@@ -119,7 +119,7 @@ const ProjectBoardIssueDetailsComment = ({
                   }}
                 >
                   <img
-                    src={`https://testapi.bluetape.io/files/${comment.file}`}
+                    src={`${process.env.REACT_APP_API_URL}.com/files/${comment.file}`}
                     style={{
                       height: '100%',
                       maxWidth: '100%',

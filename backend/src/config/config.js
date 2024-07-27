@@ -25,7 +25,7 @@ const envVarsSchema = Joi.object()
       .default('Sharingan <mail@sharingan.me>'),
     CORS_ORIGINS: Joi.string()
       .description('whitelisted domains')
-      .default('https://testappbluetape.io http://localhost:3000 https://www.sharingan.me https://sharingan-frontend.herokuapp.com https://sharingan-frontend.herokuapp.com'),
+      .default('https://bluetape-real.onrender.com http://localhost:10000 https://www.sharingan.me https://sharingan-frontend.herokuapp.com https://sharingan-frontend.herokuapp.com'),
   })
   .unknown();
 

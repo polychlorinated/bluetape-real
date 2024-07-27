@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import toast from '../../shared/utils/toast';
 import { objectToQueryString } from '../../shared/utils/url';
 import {
@@ -10,8 +9,7 @@ import {
 } from '../../shared/utils/authToken';
 
 const defaults = {
-  baseURL: process.env.REACT_APP_API_URL || 'https://localhost:5000/v1',
-
+  baseURL: process.env.REACT_APP_API_URL || 'https://bluetape-real.onrender.com/v1',
   headers: () => ({
     'Content-Type': 'application/json',
     Authorization: getStoredAuthToken()

@@ -65,13 +65,13 @@ const ProjectBacklog = ({
             <video
               controls
               style={{ width: '100%', height: '100%' }}
-              src={`https://testapi.bluetape.io/files/${project.file}`}
+              src={`${process.env.REACT_APP_API_URL}.com/files/${project.file}`}
             />
           </div>
         ) : (
           <ImageContainer>
             <Image
-              src={`https://testapi.bluetape.io/files/${project.file}`}
+              src={`${process.env.REACT_APP_API_URL}.com/${project.file}`}
               alt="Some Picture"
             />
           </ImageContainer>

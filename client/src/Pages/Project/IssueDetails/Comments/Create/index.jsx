@@ -45,7 +45,7 @@ const ProjectBoardIssueDetailsCommentsCreate = ({
       });
       console.log(comment);
       if (files.file) {
-        let url = `https://testapi.bluetape.io/v1/comment/postImage/${comment.id}`;
+        let url = `${process.env.REACT_APP_API_URL}.com/v1/comment/postImage/${comment.id}`;
         let fd = new FormData();
         fd.append('file', files.file);
 

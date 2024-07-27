@@ -84,7 +84,7 @@ const ProjectSettings = ({ project, fetchProject, openInvitationModal }) => {
           try {
             await updateProject(values);
             if (files.file) {
-              let url = `https://testapi.bluetape.io/v1/project/postImage/${project.key}`;
+              let url = `${process.env.REACT_APP_API_URL}.com/v1/project/postImage/${project.key}`;
               let fd = new FormData();
               fd.append('file', files.file);
               await axios.post(url, fd);
@@ -141,12 +141,12 @@ const ProjectSettings = ({ project, fetchProject, openInvitationModal }) => {
                       <video
                         controls
                         style={{ width: '100%', height: '100%' }}
-                        src={`https://testapi.bluetape.io/files/${project.file}`}
+                        src={`${process.env.REACT_APP_API_URL}.com/files/${project.file}`}
                       />
                     </div>
                   ) : (
                     <Image
-                      src={`https://testapi.bluetape.io/files/${project.file}`}
+                      src={`${process.env.REACT_APP_API_URL}.com/files/${project.file}`}
                     ></Image>
                   )}
                 </ImageContainer>

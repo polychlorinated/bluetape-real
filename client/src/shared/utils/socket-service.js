@@ -8,9 +8,9 @@ export const socketService = {
 function connect() {
   return new Promise((resolve, reject) => {
     const socket = io(
-      process.env.NODE_ENV === 'development'
-        ? 'https://testapi.bluetape.io'
-        : 'https://localhost:5000',
+      process.env.NODE_ENV === 'production'
+        ? 'https://bluetape-real.onrender.com/v1'
+        : 'https://localhost:10000',
       {
         query: { token: getStoredAuthToken() },
       }

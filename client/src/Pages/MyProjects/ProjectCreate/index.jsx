@@ -79,7 +79,7 @@ const CreateProject = ({
               },
             });
             if (files.file) {
-              let url = `https://testapi.bluetape.io/v1/project/postImage/${values.key}`;
+              let url = `${process.env.REACT_APP_API_URL}.com/v1/project/postImage/${values.key}`;
               let fd = new FormData();
               fd.append('file', files.file);
               await axios.post(url, fd);

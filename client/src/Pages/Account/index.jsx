@@ -71,7 +71,7 @@ const UserAccount = () => {
             try {
               const updatedUser = await updateUser(values);
               if (files.file) {
-                let url = `https://testapi.bluetape.io/v1/user/postImage/${user.id}`;
+                let url = `${process.env.REACT_APP_API_URL}.com/v1/user/postImage/${user.id}`;
                 let fd = new FormData();
                 fd.append('file', files.file);
                 await axios.post(url, fd);
@@ -112,12 +112,12 @@ const UserAccount = () => {
                         <video
                           controls
                           style={{ width: '100%', height: '100%' }}
-                          src={`https://testapi.bluetape.io/files/${user.profile}`}
+                          src={`${process.env.REACT_APP_API_URL}.com/files/${user.profile}`}
                         />
                       </div>
                     ) : (
                       <Image
-                        src={`https://testapi.bluetape.io/files/${user.profile}`}
+                      src={`${process.env.REACT_APP_API_URL}.com/files/${user.profile}`}
                       />
                     )}
                   </ImageContainer>
