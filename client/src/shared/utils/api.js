@@ -10,10 +10,8 @@ import {
 } from '../../shared/utils/authToken';
 
 const defaults = {
-  baseURL:
-    process.env.NODE_ENV === 'development'
-      ? 'https://testapi.bluetape.io/v1'
-      : 'https://localhost:5000/v1',
+  baseURL: process.env.REACT_APP_API_URL || 'https://localhost:5000/v1',
+
   headers: () => ({
     'Content-Type': 'application/json',
     Authorization: getStoredAuthToken()

@@ -6,7 +6,7 @@ import rootReducer from './root-reducer';
 import thunk from 'redux-thunk';
 
 const middlewares = [thunk];
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
   middlewares.push(logger);
 }
 
