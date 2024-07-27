@@ -1,94 +1,24 @@
-import { socketService } from '../../shared/utils/socket-service';
-import api from '../../shared/utils/api';
-import { getStoredAuthToken } from '../../shared/utils/authToken';
+import io from 'socket.io-client';
 
-const socketConstants = {
-  CONNECT: 'CONNECT',
-};
-
-const notificationConstants = {
-  TOGGLE_NOTIFICATION_POPUP: 'TOGGLE_NOTIFICATION_POPUP',
-  CLOSE_NOTIFICATION_POPUP: 'CLOSE_NOTIFICATION_POPUP',
-  ADD_NOTIFICATIONS: 'ADD_NOTIFICATIONS',
-  READ_NOTIFICATIOS: 'READ_NOTIFICATIOS',
-  FETCH_NOTIFICATIONS_REQUEST: 'FETCH_NOTIFICATIONS_REQUEST',
-  FETCH_NOTIFICATIONS_SUCCESS: 'FETCH_NOTIFICATIONS_SUCCESS',
-};
-
-let initialState = {
-  socket: {},
-  isOpen: false,
-  notifications: [],
-  allNotificationsCount: 0,
-};
-
-export const connectSocket = () => async (dispatch) => {
-  const socket = await socketService.connect();
-
-  socket.on('fetch_notifications', () => {
-    fetchNotifications(dispatch);
-  });
-};
-
-const readNotifications = (payload) => {
-  return {
-    type: notificationConstants.READ_NOTIFICATIOS,
-    payload: payload,
-  };
-};
-
-export const fetchNotifications = (dispatch) => {
-  const data = api
-    .get(`/notification/get/${getStoredAuthToken()}`)
-    .then((data) => {
-      dispatch({
-        type: notificationConstants.ADD_NOTIFICATIONS,
-        payload: {
-          notifications: data,
-          allNotificationsCount: data.filter(
-            (notification) => notification.read === false
-          ).length,
-        },
-      });
-    });
-};
-
-const toggleNotificationPopup = () => {
-  return {
-    type: notificationConstants.TOGGLE_NOTIFICATION_POPUP,
-  };
-};
-
-const closeNotificationPopup = () => {
-  return { type: notificationConstants.CLOSE_NOTIFICATION_POPUP };
-};
-
-const addNotification = () => {
-  return { type: notificationConstants.ADD_NOTIFICATION };
-};
-
-const socketReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case socketConstants.CONNECT:
-      return {
-        ...state,
-        socket: action.payload,
-      };
-    case notificationConstants.READ_NOTIFICATIOS:
-      return {
-        ...state,
-        notifications: action.payload,
-      };
-    case notificationConstants.ADD_NOTIFICATIONS:
-      return {
-        ...state,
-        notifications: action.payload.notifications,
-        allNotificationsCount: action.payload.allNotificationsCount,
-      };
-
-    default:
-      return state;
+export const connectSocket = () => (dispatch, getState) => {
+  const token = getState().auth.token; // Assuming token is stored in auth state
+  if (!token) {
+    console.error('No token available for WebSocket connection');
+    return;
   }
-};
+  const socket = io(process.env.REACT_APP_API_URL, {
+    query: { token },
+  });
 
-export default socketReducer;
+  socket.on('connect', () => {
+    console.log('WebSocket connected');
+    // Dispatch any actions needed on successful connection
+  });
+
+  socket.on('disconnect', () => {
+    console.log('WebSocket disconnected');
+    // Dispatch any actions needed on disconnection
+  });
+
+  // Handle other socket events as needed
+};
