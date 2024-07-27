@@ -1,12 +1,21 @@
-FROM node:14
+FROM node:16-buster as build
+
 WORKDIR /app
+
 COPY package*.json ./
-RUN npm install
+RUN npm ci --legacy-peer-deps
+
 COPY . .
 RUN npm run build
 
-# Install serve to run the application
+FROM node:16-buster
+
+WORKDIR /app
+
+COPY --from=build /app/build ./build
 RUN npm install -g serve
 
-EXPOSE 3000
-CMD ["serve", "-s", "build", "-l", "3000"]
+ENV PORT=10000
+EXPOSE $PORT
+
+CMD ["sh", "-c", "serve -s build -l $PORT"]
