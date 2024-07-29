@@ -24,5 +24,22 @@ api.interceptors.request.use(
   }
 );
 
+// Add a response interceptor to log the response status and errors
+api.interceptors.response.use(
+  (response) => {
+    console.log(`Response Status: ${response.status} for URL: ${response.config.url}`);
+    return response;
+  },
+  (error) => {
+    if (error.response) {
+      console.log(`Error Status: ${error.response.status} for URL: ${error.response.config.url}`);
+      console.log(`Error Data: ${JSON.stringify(error.response.data)}`);
+    } else {
+      console.log(`Error: ${error.message}`);
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Export the Axios instance
 export default api;

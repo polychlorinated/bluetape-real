@@ -13,7 +13,7 @@ const propTypes = {
 const SprintEnd = ({ fetchProject, projectId }) => {
   const handleSprintEnd = async (modal) => {
     try {
-      await api.get(`/project/end_sprint/${projectId}`);
+      await api.get(`/v1/project/end_sprint/${projectId}`);
       toast.success('Issue was send to archive!');
       modal.close();
       await fetchProject();

@@ -32,7 +32,7 @@ const ProjectIssueSearch = ({ project }) => {
   const [isSearchTermEmpty, setIsSearchTermEmpty] = useState(true);
 
   const [{ data, isLoading }, fetchIssues] = useApi.get(
-    "/issues",
+    "/v1/issues",
     {},
     { lazy: true }
   );

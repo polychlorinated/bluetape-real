@@ -53,14 +53,14 @@ const ProjectBoardIssueDetails = ({
   const [ratings, setRatings] = useState();
   const [review, setReview] = useState();
   const [body, setBody] = useState('');
-  const [{ data, error }, fetchIssue] = useApi.get(`/issue/${issueId}`);
+  const [{ data, error }, fetchIssue] = useApi.get(`/v1/issue/${issueId}`);
   if (!data) return <Loader />;
   if (error) return <PageError />;
 
   const issue = data;
 
   const updateIssue = async (updatedFields) => {
-    await api.optimisticUpdate(`/issue/${issueId}`, updatedFields);
+    await api.optimisticUpdate(`/v1/issue/${issueId}`, updatedFields);
     await fetchIssue();
     await fetchProject();
   };
@@ -75,7 +75,7 @@ const ProjectBoardIssueDetails = ({
       body: body,
     };
     await axios.post(
-      `${process.env.REACT_APP_API_URL}.com/v1/issue/createReview`,
+      `${process.env.REACT_APP_API_URL}/v1/issue/createReview`,
       sData
     );
     await fetchIssue();
@@ -115,12 +115,12 @@ const ProjectBoardIssueDetails = ({
                 <video
                   controls
                   style={{ width: '100%', height: '100%' }}
-                  src={`${process.env.REACT_APP_API_URL}.com/files/${issue.file}`}
+                  src={`${process.env.REACT_APP_API_URL}/v1/files/${issue.file}`}
                 />
               </div>
             ) : (
               <Image
-                src={`${process.env.REACT_APP_API_URL}.com/files/${issue.file}`}
+                src={`${process.env.REACT_APP_API_URL}/v1/files/${issue.file}`}
                 alt="Some Picture"
                 issue={issue}
                 updateIssue={updateIssue}
