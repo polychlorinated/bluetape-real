@@ -9,7 +9,7 @@ import {
 } from '../../shared/utils/authToken';
 
 const defaults = {
-  baseURL: process.env.REACT_APP_API_URL || 'https://bluetape-real.onrender.com/v1',
+  baseURL: process.env.REACT_APP_API_URL || 'https://bluetape-real.onrender.com/',//deleted the /v1 from the end of the URL, but may need to add back if its not correct
   headers: () => ({
     'Content-Type': 'application/json',
     Authorization: getStoredAuthToken()

@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-
+import { useEffect } from "react";
 import api from "../shared/utils/api";
-import { getStoredAuthToken } from "../shared/utils/authToken";
+import { getStoredAuthToken, setStoredAuthToken } from "../shared/utils/authToken";
 import { PageLoader } from "../shared/components";
 
 const Authenticate = () => {
@@ -10,15 +9,33 @@ const Authenticate = () => {
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      if (!getStoredAuthToken()) {
+      const token = getStoredAuthToken();
+      console.log("Stored Auth Token:", token);
+      if (!token) {
         history.push("/signin");
+        return;
       }
       try {
-        const { user } = await api.get("/auth");
-        if (user) {
-          history.push("/projects");
+        const response = await api.get("/auth");
+        console.log("Auth Response:", response);
+        const { tokens } = response;
+        if (tokens && tokens.access && tokens.access.token) {
+          setStoredAuthToken(tokens.access.token);
+          const userResponse = await api.get("/user", {
+            headers: { Authorization: `Bearer ${tokens.access.token}` }
+          });
+          console.log("User Response:", userResponse);
+          const { user } = userResponse;
+          if (user) {
+            history.push("/projects");
+          } else {
+            history.push("/signin");
+          }
+        } else {
+          history.push("/signin");
         }
       } catch (e) {
+        console.error("Auth Check Error:", e);
         history.push("/signin");
       }
     };
