@@ -7,8 +7,8 @@ dotenv.config({ path: path.join(__dirname, '../../.env') });
 const envVarsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().valid('production', 'development', 'test').default('development'),
-    PORT: Joi.number().default(5000),
-    MONGODB_URL: Joi.string().description('Mongo DB url').default('mongodb://localhost:27017/sharingan'),
+    PORT: Joi.number().default(10000),
+    MONGODB_URI: Joi.string().required().description('Mongo DB uri'),
     JWT_SECRET: Joi.string().required().description('JWT secret key'),
     JWT_ACCESS_EXPIRATION_MINUTES: Joi.number().default(120).description('minutes after which access tokens expire'),
     JWT_REFRESH_EXPIRATION_DAYS: Joi.number().default(30).description('days after which refresh tokens expire'),
@@ -23,9 +23,7 @@ const envVarsSchema = Joi.object()
     EMAIL_FROM: Joi.string()
       .description('the from field in the emails sent by the app')
       .default('Sharingan <mail@sharingan.me>'),
-    CORS_ORIGINS: Joi.string()
-      .description('whitelisted domains')
-      .default('https://bluetape-real.onrender.com http://localhost:10000 https://www.sharingan.me https://sharingan-frontend.herokuapp.com https://sharingan-frontend.herokuapp.com'),
+    CLIENT_URL: Joi.string().required().description('Client URL'),
   })
   .unknown();
 
@@ -39,9 +37,8 @@ module.exports = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   mongoose: {
-    url: envVars.MONGODB_URL + (envVars.NODE_ENV === 'test' ? '-test' : ''),
+    url: envVars.MONGODB_URI,
     options: {
-      useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     },
@@ -58,5 +55,5 @@ module.exports = {
     mailgunDomain: envVars.MAILGUN_DOMAIN,
     from: envVars.EMAIL_FROM,
   },
-  corsOrigins: envVars.CORS_ORIGINS,
+  clientUrl: envVars.CLIENT_URL,
 };

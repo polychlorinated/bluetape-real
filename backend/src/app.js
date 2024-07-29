@@ -8,8 +8,13 @@ const logger = require('./config/logger');
 const routes = require('./routes/v1');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const rateLimiter = require('./middlewares/rateLimiter');
+const ApiError = require('./utils/ApiError');
+const connectDB = require('./config/mongoose'); // Add this line
 
 const app = express();
+
+// Connect to MongoDB
+connectDB(); // Add this line
 
 // Set security HTTP headers
 app.use(helmet());
@@ -25,7 +30,7 @@ app.use(compression());
 
 // Enable CORS
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: config.clientUrl,
   credentials: true,
 }));
 

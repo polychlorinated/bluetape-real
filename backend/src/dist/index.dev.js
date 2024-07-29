@@ -14,9 +14,21 @@ var config = require('./config/config');
 
 var logger = require('./config/logger');
 
-mongoose.connect(config.mongoose.url, config.mongoose.options).then(function () {
-  logger.info('Connected to MongoDB');
-});
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      // other options as needed
+    });
+    console.log('MongoDB connected successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
+  }
+};
+
+module.exports = connectDB;
 var server = createServer(app);
 server.listen(config.port, function () {
   logger.info("Listening to port ".concat(config.port));
@@ -68,6 +80,11 @@ process.on('SIGTERM', function () {
   logger.info('SIGTERM received');
 
   if (server) {
-    server.close();
+    server.close(() => {
+      logger.info('Server closed');
+      process.exit(0);
+    });
+  } else {
+    process.exit(0);
   }
 });
