@@ -8,8 +8,6 @@ const issueRoute = require('./issue.route');
 const commentRoute = require('./comment.route');
 const notificationRoute = require('./notification.route');
 
-// const config = require('../../config/config');
-
 const router = express.Router();
 
 const defaultRoutes = [
@@ -45,16 +43,11 @@ const defaultRoutes = [
     path: '/notification',
     route: notificationRoute,
   },
+  // Add other routes here
 ];
 
 defaultRoutes.forEach((route) => {
   router.use(route.path, route.route);
 });
 
-/* istanbul ignore next */
-// if (config.env === 'development') {
-//   devRoutes.forEach((route) => {
-//     router.use(route.path, route.route);
-//   });
-// }
 module.exports = router;
