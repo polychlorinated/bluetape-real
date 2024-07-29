@@ -19,9 +19,9 @@ services:
     build: 
       context: ./backend
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+      - MONGODB_URL=mongodb://mongodb-v9b7:27017/mongodb
     ports:
-      - 8000:10000
+      - 10000:10000
     depends_on:
       - mongodb
     volumes:
@@ -31,7 +31,6 @@ services:
     networks:
       - internal
 
-
   mongodb:
     image: mongo:4.2.1-bionic
     ports:
@@ -40,7 +39,6 @@ services:
       - dbdata:/data/db
     networks:
       - internal
-
 
 volumes:
   dbdata:
