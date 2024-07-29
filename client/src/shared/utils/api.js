@@ -16,6 +16,7 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    console.log(`Requesting URL: ${config.baseURL}${config.url}`); // Log the full URL
     return config;
   },
   (error) => {
@@ -23,4 +24,5 @@ api.interceptors.request.use(
   }
 );
 
+// Export the Axios instance
 export default api;
