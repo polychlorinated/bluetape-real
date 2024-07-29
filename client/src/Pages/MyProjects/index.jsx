@@ -26,7 +26,7 @@ const MyProjects = ({ userId, setOrgProjects }) => {
   const inviteMemberModalHelpers = createQueryParamModalHelpers(
     'invite-member'
   );
-  const [{ data, error }, fetchProjects] = useApi.get(`/v1/project/${userId}`);
+  const [{ data, error }, fetchProjects] = useApi.get(`/project/${userId}`);
   useEffect(() => {
     let mounted = true;
     if (mounted && data) {

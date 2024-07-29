@@ -65,13 +65,13 @@ const ProjectBacklog = ({
             <video
               controls
               style={{ width: '100%', height: '100%' }}
-              src={`${process.env.REACT_APP_API_URL}/v1/files/${project.file}`}
+              src={`${process.env.REACT_APP_API_URL}/files/${project.file}`}
             />
           </div>
         ) : (
           <ImageContainer>
             <Image
-              src={`${process.env.REACT_APP_API_URL}/v1/${project.file}`}
+              src={`${process.env.REACT_APP_API_URL}/${project.file}`}
               alt="Some Picture"
             />
           </ImageContainer>

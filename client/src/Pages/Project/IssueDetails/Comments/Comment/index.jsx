@@ -107,7 +107,7 @@ const ProjectBoardIssueDetailsComment = ({
                       maxHeight: '20rem',
                       padding: '1rem',
                     }}
-                    src={`${process.env.REACT_APP_API_URL}/v1/files/${comment.file}`}
+                    src={`${process.env.REACT_APP_API_URL}/files/${comment.file}`}
                   />
                 </div>
               ) : (
@@ -119,7 +119,7 @@ const ProjectBoardIssueDetailsComment = ({
                   }}
                 >
                   <img
-                    src={`${process.env.REACT_APP_API_URL}/v1/files/${comment.file}`}
+                    src={`${process.env.REACT_APP_API_URL}/files/${comment.file}`}
                     style={{
                       height: '100%',
                       maxWidth: '100%',

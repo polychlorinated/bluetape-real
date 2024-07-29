@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 
 const SignUp = ({ inviteInputVisible }) => {
   const [{ isCreating }, signUp] = useApi.post('/auth/register');
-  const [{ data }] = useApi.get('/v1/auth', {}, { cachePolicy: 'no-cache' });
+  const [{ data }] = useApi.get('/auth', {}, { cachePolicy: 'no-cache' });
   const history = useHistory();
 
   useEffect(() => {

@@ -40,7 +40,7 @@ const NotificationHandler = ({ socket, userId }) => {
     .reverse();
 
   const ReadAllNotifications = async () => {
-    await api.get(`/v1/notification/read_all/${userId}`);
+    await api.get(`/notification/read_all/${userId}`);
   };
   data = data.filter(function(element) {
     return element !== undefined;
@@ -63,7 +63,7 @@ const NotificationHandler = ({ socket, userId }) => {
 const NotificationCard = ({ data }) => {
   const match = useRouteMatch();
   const NotificationClick = async () => {
-    const response = await api.get(`/v1/notification/read/${data.id}`);
+    const response = await api.get(`/notification/read/${data.id}`);
   };
 
   return (

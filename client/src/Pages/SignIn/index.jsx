@@ -20,7 +20,7 @@ import { setUser } from '../../redux/user/user-reducer';
 import ShowMap from '../../shared/components/ShowMap';
 const SignIn = ({ setUser }) => {
   const [{ isCreating }, signIn] = useApi.post('/auth/login');
-  const [{ data }] = useApi.get('/v1/auth', {}, { cachePolicy: 'no-cache' });
+  const [{ data }] = useApi.get('/auth', {}, { cachePolicy: 'no-cache' });
   const history = useHistory();
   useEffect(() => {
     let mounted = true;

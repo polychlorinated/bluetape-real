@@ -12,31 +12,31 @@ const Authenticate = () => {
       const token = getStoredAuthToken();
       console.log("Stored Auth Token:", token);
       if (!token) {
-        history.push("/v1/signin");
+        history.push("/signin");
         return;
       }
       try {
-        const response = await api.get("/v1/auth");
+        const response = await api.get("/auth");
         console.log("Auth Response:", response);
         const { tokens } = response;
         if (tokens && tokens.access && tokens.access.token) {
           setStoredAuthToken(tokens.access.token);
-          const userResponse = await api.get("/v1/user", {
+          const userResponse = await api.get("/user", {
             headers: { Authorization: `Bearer ${tokens.access.token}` }
           });
           console.log("User Response:", userResponse);
           const { user } = userResponse;
           if (user) {
-            history.push("/v1/projects");
+            history.push("/projects");
           } else {
-            history.push("/v1/signin");
+            history.push("/signin");
           }
         } else {
-          history.push("/v1/signin");
+          history.push("/signin");
         }
       } catch (e) {
         console.error("Auth Check Error:", e);
-        history.push("/v1/signin");
+        history.push("/signin");
       }
     };
     checkAuthStatus();

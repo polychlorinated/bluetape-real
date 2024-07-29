@@ -38,7 +38,7 @@ const Project = ({ setProject, epicUnderView }) => {
   );
 
   const [{ data, error }, fetchProject] = useApi.get(
-    `/v1/project/manage/${params.id}`
+    `/project/manage/${params.id}`
   );
 
   if (!data) return <PageLoader />;

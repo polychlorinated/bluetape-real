@@ -39,13 +39,13 @@ const ProjectBoardEpicDetails = ({
   user,
   projectLead,
 }) => {
-  const [{ data, error }, fetchEpic] = useApi.get(`/v1/epic/manage/${epic.epic}`);
+  const [{ data, error }, fetchEpic] = useApi.get(`/epic/manage/${epic.epic}`);
 
   if (!data) return <Loader />;
   if (error) return <PageError />;
 
   const updateEpic = async (updatedFields) => {
-    await api.optimisticUpdate(`/v1/epic/manage/${epic.epic}`, updatedFields);
+    await api.optimisticUpdate(`/epic/manage/${epic.epic}`, updatedFields);
     await fetchEpic();
     await fetchProject();
   };

@@ -84,7 +84,7 @@ const ProjectSettings = ({ project, fetchProject, openInvitationModal }) => {
           try {
             await updateProject(values);
             if (files.file) {
-              let url = `${process.env.REACT_APP_API_URL}/v1/project/postImage/${project.key}`;
+              let url = `${process.env.REACT_APP_API_URL}/project/postImage/${project.key}`;
               let fd = new FormData();
               fd.append('file', files.file);
               await axios.post(url, fd);
@@ -141,12 +141,12 @@ const ProjectSettings = ({ project, fetchProject, openInvitationModal }) => {
                       <video
                         controls
                         style={{ width: '100%', height: '100%' }}
-                        src={`${process.env.REACT_APP_API_URL}/v1/files/${project.file}`}
+                        src={`${process.env.REACT_APP_API_URL}/files/${project.file}`}
                       />
                     </div>
                   ) : (
                     <Image
-                      src={`${process.env.REACT_APP_API_URL}/v1/files/${project.file}`}
+                      src={`${process.env.REACT_APP_API_URL}/files/${project.file}`}
                     ></Image>
                   )}
                 </ImageContainer>

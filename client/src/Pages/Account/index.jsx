@@ -29,11 +29,11 @@ const UserAccount = () => {
   const orgProjects = useSelector((state) => state.project.orgProjects);
 
   const [{ data }, fetchUser] = useApi.get(
-    `/v1/user/${user?.id}`,
+    `/user/${user?.id}`,
     {},
     { cachePolicy: 'no-cache' }
   );
-  const [{ isUpdating }, updateUser] = useApi.put(`/v1/user/${user?.id}`);
+  const [{ isUpdating }, updateUser] = useApi.put(`/user/${user?.id}`);
   const [userProjects, setUserProjects] = useState([]);
   const [files, setFiles] = useState({});
   const fileRef = useRef();
@@ -71,7 +71,7 @@ const UserAccount = () => {
             try {
               const updatedUser = await updateUser(values);
               if (files.file) {
-                let url = `${process.env.REACT_APP_API_URL}/v1/user/postImage/${user.id}`;
+                let url = `${process.env.REACT_APP_API_URL}/user/postImage/${user.id}`;
                 let fd = new FormData();
                 fd.append('file', files.file);
                 await axios.post(url, fd);
@@ -112,12 +112,12 @@ const UserAccount = () => {
                         <video
                           controls
                           style={{ width: '100%', height: '100%' }}
-                          src={`${process.env.REACT_APP_API_URL}/v1/files/${user.profile}`}
+                          src={`${process.env.REACT_APP_API_URL}/files/${user.profile}`}
                         />
                       </div>
                     ) : (
                       <Image
-                      src={`${process.env.REACT_APP_API_URL}/v1/files/${user.profile}`}
+                      src={`${process.env.REACT_APP_API_URL}/files/${user.profile}`}
                       />
                     )}
                   </ImageContainer>

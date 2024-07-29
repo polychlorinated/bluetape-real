@@ -5,7 +5,7 @@ import Mangekyo from "../Loaders/Mangekyo";
 
 function ProtectedRoute({ component: Component, ...restOfProps }) {
   const [{ error, isLoading }] = useApi.get(
-    "/v1/auth",
+    "/auth",
     {},
     { cachePolicy: "no-cache" }
   );
@@ -16,7 +16,7 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
     <Route
       {...restOfProps}
       render={props =>
-        error ? <Redirect to="/v1/signin" /> : <Component {...props} />
+        error ? <Redirect to="/signin" /> : <Component {...props} />
       }
     />
   );
