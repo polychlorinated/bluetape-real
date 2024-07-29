@@ -12,6 +12,8 @@ const ApiError = require('./utils/ApiError');
 const connectDB = require('./config/mongoose'); // Add this line
 
 const app = express();
+// Claude said to add this before connecting to MongoDB:
+mongoose.set('strictQuery', false); // or true, depending on your preference
 
 // Connect to MongoDB
 connectDB(); // Add this line

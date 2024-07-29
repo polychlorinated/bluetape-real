@@ -41,7 +41,6 @@ module.exports = {
     options: {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false, // Add this line
     },
   },
   jwt: {
