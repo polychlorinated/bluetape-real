@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -9,14 +10,19 @@ const routes = require('./routes/v1');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const rateLimiter = require('./middlewares/rateLimiter');
 const ApiError = require('./utils/ApiError');
-const connectDB = require('./config/mongoose'); // Add this line
+const connectDB = require('./config/mongoose');
 
 const app = express();
-// Claude said to add this before connecting to MongoDB:
+
+// Set Mongoose options
 mongoose.set('strictQuery', false); // or true, depending on your preference
 
 // Connect to MongoDB
-connectDB(); // Add this line
+connectDB().then(() => {
+  console.log('Connected to MongoDB');
+}).catch((error) => {
+  console.error('Failed to connect to MongoDB:', error);
+});
 
 // Set security HTTP headers
 app.use(helmet());
@@ -54,5 +60,11 @@ app.use(errorConverter);
 
 // Handle error
 app.use(errorHandler);
+
+// Additional error logging
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  next(err);
+});
 
 module.exports = app;
