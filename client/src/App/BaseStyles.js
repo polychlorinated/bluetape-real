@@ -99,7 +99,7 @@ export default createGlobalStyle`
   html {
     touch-action: manipulation;
   }
-  .signin__container {
+  .signIn__container {
     min-height: 100vh;
     min-width: 100%;
  

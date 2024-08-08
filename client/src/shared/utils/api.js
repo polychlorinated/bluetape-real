@@ -1,10 +1,8 @@
 import axios from 'axios';
-import { getStoredAuthToken } from './authToken';
+import { getStoredAuthToken, getStoredRefreshToken, setStoredAuthToken, isTokenExpired, removeStoredAuthToken, removeStoredRefreshToken } from './authToken';
 
-// Use the environment variable set in Render, fallback to a default if not set
 const baseURL = process.env.REACT_APP_API_URL || 'https://bluetape-real.onrender.com/v1/';
 
-// Create an Axios instance
 const api = axios.create({
   baseURL: baseURL,
   headers: {
@@ -12,14 +10,28 @@ const api = axios.create({
   },
 });
 
-// Add a request interceptor to include the auth token in headers
 api.interceptors.request.use(
-  (config) => {
-    const token = getStoredAuthToken();
+  async (config) => {
+    let token = getStoredAuthToken();
+    if (token && isTokenExpired(token)) {
+      console.log('Token expired, attempting to refresh');
+      try {
+        const refreshToken = getStoredRefreshToken();
+        const response = await axios.post(`${baseURL}/auth/refresh-tokens`, { refreshToken });
+        setStoredAuthToken(response.data.tokens.access.token);
+        token = response.data.tokens.access.token;
+      } catch (error) {
+        console.error('Token refresh failed:', error);
+        removeStoredAuthToken();
+        removeStoredRefreshToken();
+        // Redirect to signIn or handle refresh failure
+        window.location.href = '/signIn';
+      }
+    }
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    console.log(`Requesting URL: ${config.baseURL}${config.url}`); // Log the full URL
+    console.log(`Requesting URL: ${config.baseURL}${config.url}`);
     return config;
   },
   (error) => {
@@ -27,7 +39,6 @@ api.interceptors.request.use(
   }
 );
 
-// Add a response interceptor to log the response status and errors
 api.interceptors.response.use(
   (response) => {
     console.log(`Response Status: ${response.status} for URL: ${response.config.url}`);
@@ -46,5 +57,4 @@ api.interceptors.response.use(
   }
 );
 
-// Export the Axios instance
 export default api;

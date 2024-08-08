@@ -25,7 +25,7 @@ const useMutation = (method, url) => {
           },
           error => {
             if (error.code === 401 && error.message === "Please authenticate") {
-              if (match.path !== "signup") history.push("/signin");
+              if (match.path !== "signup") history.push("/signIn");
             }
             reject(error);
             mergeState({ error, data: null, isWorking: false });

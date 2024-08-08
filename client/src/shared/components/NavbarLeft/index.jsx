@@ -13,7 +13,7 @@ import {
 
 const ProjectNavbarLeft = (props) => {
   const history = useHistory();
-  const [, signOut] = useApi.post('/auth/logout');
+  const [, signOut] = useApi.post('/auth/signOut');
 
   return (
     <NavLeft>
@@ -57,11 +57,11 @@ const ProjectNavbarLeft = (props) => {
             const refreshToken = getStoredRefreshToken();
             await signOut({ refreshToken });
             removeStoredAuthToken();
-            history.push('/signin');
+            history.push('/signIn');
           }}
         >
           <Icon type="arrow-left" size={27} />
-          <ItemText>Logout</ItemText>
+          <ItemText>signOut</ItemText>
         </Item>
       </Bottom>
     </NavLeft>

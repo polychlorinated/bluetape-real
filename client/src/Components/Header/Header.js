@@ -8,7 +8,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { connect } from "react-redux";
-import { logout } from "../../redux/auth/auth-actions";
+import { signOut } from "../../redux/auth/auth-actions";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 const useStyles = makeStyles(theme => ({
@@ -44,8 +44,8 @@ export const Header = props => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleLogout = () => {
-    props.logout(props.history);
+  const handlesignOut = () => {
+    props.signOut(props.history);
   };
 
   return (
@@ -53,7 +53,7 @@ export const Header = props => {
       <AppBar position="static" className={classes.appBar}>
         <Toolbar style={{ justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
-            {props.page === undefined || props.page !== "signin" ? (
+            {props.page === undefined || props.page !== "signIn" ? (
               <Typography
                 component="div"
                 style={{
@@ -74,14 +74,14 @@ export const Header = props => {
               {title}
             </Typography>
           </div>
-          {props.page !== "signin" && props.page !== "home" ? (
+          {props.page !== "signIn" && props.page !== "home" ? (
             <img
               src="Assets/logo.jpeg"
               style={{ width: "50px", height: "50px" }}
               alt="Bluetap Logo"
             />
           ) : null}
-          {props.page === undefined || props.page !== "signin" ? (
+          {props.page === undefined || props.page !== "signIn" ? (
             <div className={classes.groupButtons}>
               <Typography variant="h6" className={classes.title}>
                 {user ? user.name : ""}
@@ -110,7 +110,7 @@ export const Header = props => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem onClick={handlesignOut}>signOut</MenuItem>
               </Menu>
             </div>
           ) : null}
@@ -124,4 +124,4 @@ const mapStateToProps = state => ({
   user: state.authState.user
 });
 
-export default connect(mapStateToProps, { logout })(Header);
+export default connect(mapStateToProps, { signOut })(Header);

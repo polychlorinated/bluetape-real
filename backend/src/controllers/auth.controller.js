@@ -67,15 +67,15 @@ const register = catchAsync(async (req, res) => {
   }
 });
 
-const login = catchAsync(async (req, res) => {
+const signIn = catchAsync(async (req, res) => {
   const { email, password } = req.body;
-  const user = await authService.loginUserWithEmailAndPassword(email, password);
+  const user = await authService.signInUserWithEmailAndPassword(email, password);
   const tokens = await tokenService.generateAuthTokens(user);
   res.send({ user, tokens });
 });
 
-const logout = catchAsync(async (req, res) => {
-  await authService.logout(req.body.refreshToken);
+const signOut = catchAsync(async (req, res) => {
+  await authService.signOut(req.body.refreshToken);
   res.status(httpStatus.NO_CONTENT).send();
 });
 
@@ -140,8 +140,8 @@ function generatePassword() {
 
 module.exports = {
   register,
-  login,
-  logout,
+  signIn,
+  signOut,
   refreshTokens,
   forgotPassword,
   resetPassword,

@@ -82,15 +82,15 @@ describe('Auth routes', () => {
     });
   });
 
-  describe('POST /auth/login', () => {
-    test('should return 200 and login user if email and password match', async () => {
+  describe('POST /auth/signIn', () => {
+    test('should return 200 and signIn user if email and password match', async () => {
       await insertUsers([userOne]);
-      const loginCredentials = {
+      const signInCredentials = {
         email: userOne.email,
         password: userOne.password,
       };
 
-      const res = await request(app).post('/auth/login').send(loginCredentials).expect(httpStatus.OK);
+      const res = await request(app).post('/auth/signIn').send(signInCredentials).expect(httpStatus.OK);
 
       expect(res.body.user).toEqual({
         id: expect.anything(),
@@ -107,44 +107,44 @@ describe('Auth routes', () => {
     });
 
     test('should return 401 error if there are no users with that email', async () => {
-      const loginCredentials = {
+      const signInCredentials = {
         email: userOne.email,
         password: userOne.password,
       };
 
-      const res = await request(app).post('/auth/login').send(loginCredentials).expect(httpStatus.UNAUTHORIZED);
+      const res = await request(app).post('/auth/signIn').send(signInCredentials).expect(httpStatus.UNAUTHORIZED);
 
       expect(res.body).toEqual({ code: httpStatus.UNAUTHORIZED, message: 'Incorrect email or password' });
     });
 
     test('should return 401 error if password is wrong', async () => {
       await insertUsers([userOne]);
-      const loginCredentials = {
+      const signInCredentials = {
         email: userOne.email,
         password: 'wrongPassword1',
       };
 
-      const res = await request(app).post('/auth/login').send(loginCredentials).expect(httpStatus.UNAUTHORIZED);
+      const res = await request(app).post('/auth/signIn').send(signInCredentials).expect(httpStatus.UNAUTHORIZED);
 
       expect(res.body).toEqual({ code: httpStatus.UNAUTHORIZED, message: 'Incorrect email or password' });
     });
   });
 
-  describe('POST /auth/logout', () => {
+  describe('POST /auth/signOut', () => {
     test('should return 204 if refresh token is valid', async () => {
       await insertUsers([userOne]);
       const expires = moment().add(config.jwt.refreshExpirationDays, 'days');
       const refreshToken = tokenService.generateToken(userOne._id, expires, tokenTypes.REFRESH);
       await tokenService.saveToken(refreshToken, userOne._id, expires, tokenTypes.REFRESH);
 
-      await request(app).post('/auth/logout').send({ refreshToken }).expect(httpStatus.NO_CONTENT);
+      await request(app).post('/auth/signOut').send({ refreshToken }).expect(httpStatus.NO_CONTENT);
 
       const dbRefreshTokenDoc = await Token.findOne({ token: refreshToken });
       expect(dbRefreshTokenDoc).toBe(null);
     });
 
     test('should return 400 error if refresh token is missing from request body', async () => {
-      await request(app).post('/auth/logout').send().expect(httpStatus.BAD_REQUEST);
+      await request(app).post('/auth/signOut').send().expect(httpStatus.BAD_REQUEST);
     });
 
     test('should return 404 error if refresh token is not found in the database', async () => {
@@ -152,7 +152,7 @@ describe('Auth routes', () => {
       const expires = moment().add(config.jwt.refreshExpirationDays, 'days');
       const refreshToken = tokenService.generateToken(userOne._id, expires, tokenTypes.REFRESH);
 
-      await request(app).post('/auth/logout').send({ refreshToken }).expect(httpStatus.NOT_FOUND);
+      await request(app).post('/auth/signOut').send({ refreshToken }).expect(httpStatus.NOT_FOUND);
     });
 
     test('should return 404 error if refresh token is blacklisted', async () => {
@@ -161,7 +161,7 @@ describe('Auth routes', () => {
       const refreshToken = tokenService.generateToken(userOne._id, expires, tokenTypes.REFRESH);
       await tokenService.saveToken(refreshToken, userOne._id, expires, tokenTypes.REFRESH, true);
 
-      await request(app).post('/auth/logout').send({ refreshToken }).expect(httpStatus.NOT_FOUND);
+      await request(app).post('/auth/signOut').send({ refreshToken }).expect(httpStatus.NOT_FOUND);
     });
   });
 

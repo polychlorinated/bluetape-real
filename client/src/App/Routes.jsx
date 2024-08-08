@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import Project from '../Pages/Project';
 import PageError from '../shared/components/PageError';
-import SignIn from '../Pages/SignIn';
+import signIn from '../Pages/signIn';
 import SignUp from '../Pages/SignUp';
 import MyProjects from '../Pages/MyProjects';
 import UserAccount from '../Pages/Account';
@@ -14,8 +14,8 @@ const Routes = ({ history }) => {
   return (
     <Router history={history}>
       <Switch>
-        <Redirect exact from="/" to="/signin" />
-        <Route path="/signin" component={SignIn} />
+        <Redirect exact from="/" to="/signIn" />
+        <Route path="/signIn" component={signIn} />
 
         <Route path="/forgot_pass" component={ForgotPassword} />
         <Route path="/reset_pass/:token" component={ResetPassword} />

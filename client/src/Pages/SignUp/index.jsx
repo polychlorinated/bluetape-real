@@ -37,7 +37,7 @@ const SignUp = ({ inviteInputVisible }) => {
   }, [data, history]);
 
   return (
-    <div className="signin__container">
+    <div className="signIn__container">
       <AuthPage>
         <EntryCard>
           <Form
@@ -68,7 +68,7 @@ const SignUp = ({ inviteInputVisible }) => {
                   toast.success('User created successfully!');
                 }
                 setTimeout(() => {
-                  history.push('/signin');
+                  history.push('/signIn');
                 }, 1000);
               } catch (error) {
                 toast.error(error);
@@ -121,7 +121,7 @@ const SignUp = ({ inviteInputVisible }) => {
               <Divider />
               <span>
                 Already have an account?
-                <Link to="/signin">Sign in</Link>
+                <Link to="/signIn">Sign in</Link>
               </span>
             </FormElement>
           </Form>

@@ -35,7 +35,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 - use native functions instead of Lodash ([66c9e33](https://github.com/hagopj13/node-express-boilerplate/commit/66c9e33d65c88989634fc485e89b396645670730)), closes [#18](https://github.com/hagopj13/node-express-boilerplate/issues/18)
-- add logout endpoint ([750feb5](https://github.com/hagopj13/node-express-boilerplate/commit/750feb5b1ddadb4da6742b445cdb1112a615ace4)), closes [#19](https://github.com/hagopj13/node-express-boilerplate/issues/19)
+- add signOut endpoint ([750feb5](https://github.com/hagopj13/node-express-boilerplate/commit/750feb5b1ddadb4da6742b445cdb1112a615ace4)), closes [#19](https://github.com/hagopj13/node-express-boilerplate/issues/19)
 
 ## [1.3.0](https://github.com/hagopj13/node-express-boilerplate/compare/v1.2.0...v1.3.0) (2020-05-17)
 

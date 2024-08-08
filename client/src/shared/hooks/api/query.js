@@ -47,7 +47,7 @@ const useQuery = (url, propsVariables = {}, options = {}) => {
         },
         error => {
           if (error.code === 401 && error.message === "Please authenticate") {
-            if (match.path !== "/signup") history.push("/signin");
+            if (match.path !== "/signup") history.push("/signIn");
           }
           mergeState({ error, data: null, isLoading: false });
         }

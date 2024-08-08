@@ -17,14 +17,14 @@ const register = {
   }),
 };
 
-const login = {
+const signIn = {
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 };
 
-const logout = {
+const signOut = {
   body: Joi.object().keys({
     refreshToken: Joi.string().required(),
   }),
@@ -57,8 +57,8 @@ const verifyEmail = {
 
 module.exports = {
   register,
-  login,
-  logout,
+  signIn,
+  signOut,
   refreshTokens,
   forgotPassword,
   resetPassword,

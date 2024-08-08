@@ -247,7 +247,7 @@ var register = catchAsync(function _callee2(req, res) {
     }
   }, null, null, [[0, 67]]);
 });
-var login = catchAsync(function _callee3(req, res) {
+var signIn = catchAsync(function _callee3(req, res) {
   var _req$body, email, password, user, tokens;
 
   return regeneratorRuntime.async(function _callee3$(_context3) {
@@ -256,7 +256,7 @@ var login = catchAsync(function _callee3(req, res) {
         case 0:
           _req$body = req.body, email = _req$body.email, password = _req$body.password;
           _context3.next = 3;
-          return regeneratorRuntime.awrap(authService.loginUserWithEmailAndPassword(email, password));
+          return regeneratorRuntime.awrap(authService.signInUserWithEmailAndPassword(email, password));
 
         case 3:
           user = _context3.sent;
@@ -277,13 +277,13 @@ var login = catchAsync(function _callee3(req, res) {
     }
   });
 });
-var logout = catchAsync(function _callee4(req, res) {
+var signOut = catchAsync(function _callee4(req, res) {
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           _context4.next = 2;
-          return regeneratorRuntime.awrap(authService.logout(req.body.refreshToken));
+          return regeneratorRuntime.awrap(authService.signOut(req.body.refreshToken));
 
         case 2:
           res.status(httpStatus.NO_CONTENT).send();
@@ -451,8 +451,8 @@ var authChecker = catchAsync(function _callee10(req, res) {
 });
 module.exports = {
   register: register,
-  login: login,
-  logout: logout,
+  signIn: signIn,
+  signOut: signOut,
   refreshTokens: refreshTokens,
   forgotPassword: forgotPassword,
   resetPassword: resetPassword,

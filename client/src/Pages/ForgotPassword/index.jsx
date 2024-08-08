@@ -21,7 +21,7 @@ import toast from '../../shared/utils/toast';
 const ForgotPassword = () => {
   const [{ isCreating }, forgotPassword] = useApi.post('/auth/forgot_password');
   return (
-    <div className="signin__container">
+    <div className="signIn__container">
       <AuthPage>
         <EntryCard>
           <Form
@@ -59,7 +59,7 @@ const ForgotPassword = () => {
               <Divider />
               <span>
                 Have a password?
-                <Link to="/signin">Sign in</Link>
+                <Link to="/signIn">Sign in</Link>
               </span>
             </FormElement>
           </Form>

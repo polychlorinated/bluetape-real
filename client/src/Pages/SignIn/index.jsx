@@ -18,8 +18,8 @@ import toast from '../../shared/utils/toast';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/user/user-reducer';
 import ShowMap from '../../shared/components/ShowMap';
-const SignIn = ({ setUser }) => {
-  const [{ isCreating }, signIn] = useApi.post('/auth/login');
+const signIn = ({ setUser }) => {
+  const [{ isCreating }, signIn] = useApi.post('/auth/signIn');
   const [{ data }] = useApi.get('/auth', {}, { cachePolicy: 'no-cache' });
   const history = useHistory();
   useEffect(() => {
@@ -34,7 +34,7 @@ const SignIn = ({ setUser }) => {
   }, [data, history, setUser]);
 
   return (
-    <div className="signin__container">
+    <div className="signIn__container">
       <AuthPage>
         <EntryCard>
           <Form
@@ -98,4 +98,4 @@ const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch(setUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(signIn);

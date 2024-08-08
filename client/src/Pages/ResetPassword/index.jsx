@@ -23,7 +23,7 @@ const ResetPassword = () => {
   const history = useHistory();
   const [{ isCreating }, resetPassword] = useApi.post('/auth/reset_password');
   return (
-    <div className="signin__container">
+    <div className="signIn__container">
       <AuthPage>
         <EntryCard>
           <Form
@@ -42,7 +42,7 @@ const ResetPassword = () => {
                 });
                 toast.success('Password reset successful!');
                 setTimeout(() => {
-                  history.push('/signin');
+                  history.push('/signIn');
                 }, 500);
               } catch (error) {
                 toast.error(error);
