@@ -5,17 +5,21 @@ const register = {
   body: Joi.object().keys({
     email: Joi.string().trim().required().email(),
     password: Joi.string().trim().required().custom(password),
-    organization: Joi.string().trim(),
-    role: Joi.string().trim(),
+    organization: Joi.string().trim().required(),
+    role: Joi.string().trim().required().valid('member', 'owner'),
     name: Joi.string().trim().required(),
-    invitationCode: Joi.string().length(6),
-    creationDate: Joi.date().required(),
+    invitationCode: Joi.string().length(6).when('role', {
+      is: 'member',
+      then: Joi.required(),
+      otherwise: Joi.forbidden()
+    }),
+    creationDate: Joi.date().default(Date.now),
   }),
 };
 
 const login = {
   body: Joi.object().keys({
-    email: Joi.string().required(),
+    email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 };
