@@ -67,7 +67,68 @@ const register = catchAsync(async (req, res) => {
   }
 });
 
-// ... (keep the rest of the functions as they are)
+const login = catchAsync(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await authService.loginUserWithEmailAndPassword(email, password);
+  const tokens = await tokenService.generateAuthTokens(user);
+  res.send({ user, tokens });
+});
+
+const logout = catchAsync(async (req, res) => {
+  await authService.logout(req.body.refreshToken);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const refreshTokens = catchAsync(async (req, res) => {
+  const tokens = await authService.refreshAuth(req.body.refreshToken);
+  res.send({ ...tokens });
+});
+
+const forgotPassword = catchAsync(async (req, res) => {
+  const newPassword = generatePassword();
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    res.status(httpStatus.BAD_REQUEST).send('User does not exist!');
+    return;
+  }
+  Object.assign(user, { password: newPassword });
+
+  await user.save();
+
+  await emailService.sendResetPasswordEmail(req.body.email, newPassword);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const resetPassword = catchAsync(async (req, res) => {
+  await authService.resetPassword(req.body.token, req.body.password);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const sendVerificationEmail = catchAsync(async (req, res) => {
+  const verifyEmailToken = await tokenService.generateVerifyEmailToken(req.user);
+
+  await emailService.sendVerificationEmail(req.user.email, verifyEmailToken);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const verifyEmail = catchAsync(async (req, res) => {
+  await authService.verifyEmail(req.params.token);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const authChecker = catchAsync(async (req, res) => {
+  res.send({ user: req.user });
+});
+
+function generatePassword() {
+  var length = 16,
+    charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+    retVal = '';
+  for (var i = 0, n = charset.length; i < length; ++i) {
+    retVal += charset.charAt(Math.floor(Math.random() * n));
+  }
+  return retVal;
+}
 
 module.exports = {
   register,
