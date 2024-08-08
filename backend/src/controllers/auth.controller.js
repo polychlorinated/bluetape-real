@@ -117,7 +117,15 @@ const verifyEmail = catchAsync(async (req, res) => {
 });
 
 const authChecker = catchAsync(async (req, res) => {
-  res.send({ user: req.user });
+  try {
+    if (!req.user) {
+      throw new Error('User not authenticated');
+    }
+    res.send({ user: req.user });
+  } catch (error) {
+    console.error('Auth check error:', error);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message: 'An error occurred during authentication check' });
+  }
 });
 
 function generatePassword() {

@@ -19,15 +19,21 @@ const verifyCallback = (req, resolve, reject, requiredRights) => async (err, use
 
   resolve();
 };
-
-const auth =
-  (...requiredRights) =>
-  async (req, res, next) => {
-    return new Promise((resolve, reject) => {
-      passport.authenticate('jwt', { session: false }, verifyCallback(req, resolve, reject, requiredRights))(req, res, next);
-    })
-      .then(() => next())
-      .catch((err) => next(err));
-  };
+// in const auth = () the parentheses used to have '(...requiredRights)' but it was removed
+const auth = () => async (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = await verifyToken(token);
+    const user = await User.findById(decoded.sub);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    req.user = user;
+    next();
+  } catch (error) {
+    console.error('Auth middleware error:', error);
+    res.status(401).send({ message: 'Please authenticate' });
+  }
+};
 
 module.exports = auth;
